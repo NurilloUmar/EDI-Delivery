@@ -18,12 +18,18 @@ class ProductViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Mahsulotlar"
+        navigationItem.title = L(.products)
         view.backgroundColor = .systemBackground
-
         addSwiftUI(view: ProductView(viewModel: viewModel))
         viewModel.handleEvent(eventType: .viewDidLoad)
         setupRefreshButton()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Savat holati o'zgargan bo'lishi mumkin (masalan tovar qo'shildi/o'chirildi) —
+        // yashil borderlar to'g'ri bo'lishi uchun savatni yengil yangilaymiz.
+        viewModel.handleEvent(eventType: .refreshBasket)
     }
 
     private func setupRefreshButton() {
@@ -40,4 +46,5 @@ class ProductViewController: BaseViewController {
     @objc private func didTapRefresh() {
         viewModel.handleEvent(eventType: .refresh)
     }
+    
 }

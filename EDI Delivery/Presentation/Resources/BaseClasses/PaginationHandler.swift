@@ -49,12 +49,10 @@ enum PaginationHandler {
             state.hasMore = newItems.count >= state.limit
             state.skip += newItems.count
 
-        case .failure(let error):
-            Alert.showAlert(
-                forState: .error,
-                message: error.localizedDescription,
-                vibrationType: .error
-            )
+        case .failure:
+            // Xato xabari markaziy joyda (AnalysisResponseMonitor) ko'rsatiladi;
+            // bu yerda faqat loading flag'lari tozalanadi (yuqorida).
+            break
         }
     }
 }

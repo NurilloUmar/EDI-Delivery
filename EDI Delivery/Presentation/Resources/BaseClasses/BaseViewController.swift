@@ -15,32 +15,10 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.backButtonTitle = ""
         setupSubviews()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleLanguageChange),
-            name: .appLanguageDidChange,
-            object: nil
-        )
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        localize()
-    }
-
-    @objc private func handleLanguageChange() {
-        localize()
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
 }
 
 @objc extension BaseViewController {
-    func localize() {}
-
     func setupSubviews() {
         embedSubviews()
         setSubviewsConstraints()

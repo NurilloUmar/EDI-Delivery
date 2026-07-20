@@ -1,8 +1,10 @@
-//
-//  ProductService.swift
-//  EDI Delivery
-//
-//  Created by hayot on 6/12/26.
-//
+internal import Foundation
 
-import Foundation
+struct ProductService: BaseService {
+    typealias Convertible = ProductRouter
+    
+    func getProducts(completion: @escaping Completion<[ProductResponse]>){
+        request(.getProducts, completion: completion)
+    }
+    
+}

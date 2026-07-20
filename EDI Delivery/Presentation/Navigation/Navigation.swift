@@ -37,6 +37,22 @@ extension Coordinator {
         controller.hidesBottomBarWhenPushed = true
         navController?.pushViewController(controller, animated: true)
     }
+
+    /// Joriy controller'ni nav stack'dan chiqarib, o'rniga yangi coordinator'ni
+    /// qo'yadi — yangi ekrandan orqaga qaytilganda joriy ekran o'tkazib yuboriladi
+    /// (masalan, OrderDetail → Savat: orqaga bosilganda Buyurtmalar ro'yxatiga tushadi).
+    func replaceTop(with coordinator: Coordinator) {
+        let controller: BaseViewController = coordinator.start()
+        controller.hidesBottomBarWhenPushed = true
+        guard let navController else { return }
+        var stack = navController.viewControllers
+        if let current = viewController, let index = stack.firstIndex(of: current) {
+            stack[index] = controller
+            navController.setViewControllers(stack, animated: true)
+        } else {
+            navController.pushViewController(controller, animated: true)
+        }
+    }
     
     func presentTo(coordinator: Coordinator) {
         let controller: BaseViewController = coordinator.start()

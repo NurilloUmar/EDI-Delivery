@@ -23,5 +23,3 @@ class BaseTableViewCell: UITableViewCell {
     func setSubviewsConstraints() {}
 }
 
-
-//+82010934266

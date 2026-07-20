@@ -1,8 +1,9 @@
-//
-//  ProfileUIState.swift
-//  EDI Delivery
-//
-//  Created by hayot on 6/12/26.
-//
+internal import Foundation
 
-import Foundation
+struct ProfileUIState {
+    var user = UserData()
+    var showLogoutAlert: Bool = false
+    var showDeleteAlert: Bool = false
+}
+
+

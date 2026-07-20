@@ -17,9 +17,9 @@ public enum NetworkError: Swift.Error, LocalizedError {
         case .unexpected(let description):
             return description
         case .unableToConnect:
-            return LanguageManager.shared[.error_no_internet]
+            return L(.noInternet)
         case .unauthorized:
-            return LanguageManager.shared[.error_session_expired]
+            return L(.sessionEnded)
         }
     }
     

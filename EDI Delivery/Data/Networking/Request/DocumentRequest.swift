@@ -5,4 +5,10 @@
 //  Created by hayot on 6/18/26.
 //
 
-import Foundation
+internal import Foundation
+
+struct DocumentRequest: Codable {
+    var limit: Int = 500
+    var date_start: String?
+    var date_end: String?
+}

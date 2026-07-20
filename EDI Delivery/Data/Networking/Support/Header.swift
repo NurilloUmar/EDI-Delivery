@@ -45,7 +45,7 @@ extension Header {
             case .multipartFormData:
                 return "multipart/form-data; boundary=Boundary-\(UUID().uuidString)"
             case .language:
-                return "uz"
+                return LocalizationManager.shared.language.rawValue
             case .custom(let value):
                 return value
             case .smsToken:

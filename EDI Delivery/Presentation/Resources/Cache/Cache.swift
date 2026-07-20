@@ -44,4 +44,14 @@ class Cache {
     func deleteUser() {
         UserDefaults.standard.removeObject(forKey: Keys.userInfo)
     }
+
+    // MARK: - Language
+
+    func saveLanguage(_ code: String) {
+        UserDefaults.standard.set(code, forKey: Keys.appLanguage)
+    }
+
+    func getLanguage() -> String? {
+        return UserDefaults.standard.string(forKey: Keys.appLanguage)
+    }
 }

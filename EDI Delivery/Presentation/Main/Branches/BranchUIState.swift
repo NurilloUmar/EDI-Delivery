@@ -1,8 +1,7 @@
-//
-//  BranchUIState.swift
-//  EDI Delivery
-//
-//  Created by hayot on 6/15/26.
-//
+internal import Foundation
 
-import Foundation
+struct BranchUIState {
+    var items: [BranchResponse] = []
+    var searchText: String = ""
+    var detailBranch: BranchResponse?
+}

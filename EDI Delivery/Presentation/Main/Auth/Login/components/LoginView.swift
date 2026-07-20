@@ -78,6 +78,30 @@ private struct LoginNumberField: View {
     @Binding var text: String
     @FocusState private var isFocused: Bool
 
+    /// Maydonda ko'rinadigan matn ("XX XXX XX XX" ko'rinishida). Bog'langan
+    /// `text` esa doim toza raqamlarda qoladi (maks. 9 xona) — shu tufayli
+    /// `isEnabled` tekshiruvi va API chaqiruvi o'zgarmaydi.
+    @State private var display: String
+
+    init(title: String, text: Binding<String>) {
+        self.title = title
+        self._text = text
+        self._display = State(initialValue: Self.grouped(text.wrappedValue))
+    }
+
+    /// 9 xonagacha raqamni 2-3-2-2 guruhlaydi: "999801234" -> "99 980 12 34"
+    private static func grouped(_ raw: String) -> String {
+        let digits = Array(raw.prefix(9))
+        var groups: [String] = []
+        var index = 0
+        for size in [2, 3, 2, 2] where index < digits.count {
+            let end = min(index + size, digits.count)
+            groups.append(String(digits[index..<end]))
+            index = end
+        }
+        return groups.joined(separator: " ")
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(title)
@@ -87,14 +111,25 @@ private struct LoginNumberField: View {
                 Text("+998")
                     .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.primary)
-                TextField("XX XXX XX XX", text: $text)
+                TextField("XX XXX XX XX", text: $display)
                     .font(.system(size: 16))
                     .focused($isFocused)
                     .keyboardType(.numberPad)
                     .textContentType(.telephoneNumber)
-                    .onChange(of: text) { newValue in
-                        let digits = newValue.filter { $0.isNumber }
-                        text = String(digits.prefix(9))
+                    .onChange(of: display) { newValue in
+                        var digits = newValue.filter { $0.isNumber }
+                        // To'liq xalqaro raqam paste/AutoFill bo'lsa (998 + 9 xona) — 998 ni tashlaymiz.
+                        // Aynan 12 xona sharti muhim: "99 8.." bilan boshlanadigan raqamlarga tegmaydi.
+                        if digits.count == 12, digits.hasPrefix("998") {
+                            digits = String(digits.dropFirst(3))
+                        }
+                        digits = String(digits.prefix(9))
+                        if text != digits { text = digits }
+
+                        // Ortiqcha (10-) raqam maydonga kirmaydi: ko'rinish har doim
+                        // formatlangan holatga darhol qaytariladi.
+                        let formatted = Self.grouped(digits)
+                        if newValue != formatted { display = formatted }
                     }
             }
             .padding(.horizontal, 14)

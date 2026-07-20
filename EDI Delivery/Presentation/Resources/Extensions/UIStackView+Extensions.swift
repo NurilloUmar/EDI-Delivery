@@ -44,7 +44,6 @@ extension UIStackView {
         removeArrangedSubview(view)
         NSLayoutConstraint.deactivate(view.constraints)
         view.removeFromSuperview()
-        
         return view
     }
 }

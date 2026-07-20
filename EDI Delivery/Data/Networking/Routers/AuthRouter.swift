@@ -10,19 +10,19 @@ enum LoginRouter: BaseURLRequestConvertible {
     var path: String {
         switch self {
         case .login:
-            return "/api/auth/login"
+            return "/api/mobile-api/courier/login"
         case .getMe:
-            return "/api/auth/get-me"
+            return "/api/mobile-api/delivery/v1/common/get-me"
         case .logOut:
-            return "/api/auth/logout"
+            return "/api/mobile-api/delivery/v1/auth/logout"
         }
     }
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .login:
+        case .login, .logOut:
             return .post
-        case .getMe, .logOut:
+        case .getMe:
             return .get
         }
     }

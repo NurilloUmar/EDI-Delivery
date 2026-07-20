@@ -5,15 +5,19 @@ import SwiftUI
 struct CustomTextField: View {
     let title: String
     @Binding var text: String
+    @FocusState private var isFocused: Bool
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(title)
                 .font(.subheadline)
                 .foregroundColor(.gray)
             TextField("Kiriting", text: $text)
+                .focused($isFocused)
                 .padding()
                 .background(Color(.systemGray6))
                 .cornerRadius(10)
+                .contentShape(Rectangle())
+                .onTapGesture { isFocused = true }
         }
     }
 }
@@ -61,7 +65,8 @@ struct LoginInputField: View {
     let placeholder: String
     @Binding var text: String
     var isSecure: Bool = false
-    
+    @FocusState private var isFocused: Bool
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
@@ -75,12 +80,15 @@ struct LoginInputField: View {
                     TextField(placeholder, text: $text)
                 }
             }
+            .focused($isFocused)
             .padding()
             .frame(height: 48)
             .background(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color.gray.opacity(0.3), lineWidth: 1.5)
             )
+            .contentShape(Rectangle())
+            .onTapGesture { isFocused = true }
         }
     }
 }

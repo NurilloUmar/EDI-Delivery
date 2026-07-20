@@ -1,8 +1,29 @@
-//
-//  ProductRouter.swift
-//  EDI Delivery
-//
-//  Created by hayot on 6/12/26.
-//
+internal import Foundation
+import Alamofire
 
-import Foundation
+enum ProductRouter: BaseURLRequestConvertible {
+    
+    case getProducts
+   
+    var path: String {
+        switch self {
+        case .getProducts:
+            return "/api/mobile-api/delivery/v1/product/get"
+        }
+    }
+    
+    var method: Alamofire.HTTPMethod {
+        switch self {
+        case .getProducts:
+            return .get
+        }
+    }
+    
+    var parameters: Alamofire.Parameters? {
+        switch self {
+        case .getProducts:
+            return nil
+        }
+    }
+    
+}

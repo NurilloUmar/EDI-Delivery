@@ -8,7 +8,6 @@ public extension Closurable {
         weak let weakSelf = self
         let container = ClosureContainer(closure: closure, caller: weakSelf)
         objc_setAssociatedObject(self, Unmanaged.passUnretained(self).toOpaque(), container as AnyObject?, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-
         return container
     }
 }

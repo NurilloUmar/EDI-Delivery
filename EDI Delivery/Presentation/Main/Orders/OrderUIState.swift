@@ -1,8 +1,7 @@
-//
-//  OrderUIState.swift
-//  EDI Delivery
-//
-//  Created by hayot on 6/16/26.
-//
+internal import Foundation
 
-import Foundation
+struct OrderUIState {
+    var items: [OrderResponse] = []
+    var searchText: String = ""
+    var selectedDate: Date = Date()
+}

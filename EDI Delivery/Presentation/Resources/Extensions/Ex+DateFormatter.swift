@@ -1,8 +1,10 @@
-//
-//  Ex+DateFormatter.swift
-//  EDI Delivery
-//
-//  Created by hayot on 6/19/26.
-//
+internal import Foundation
 
-import Foundation
+extension DateFormatter {
+    static let apiDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
+}

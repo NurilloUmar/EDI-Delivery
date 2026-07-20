@@ -6,6 +6,7 @@ struct AppSearchBar: View {
     let placeholder: String
     @Binding var text: String
     var onChange: ((String) -> Void)?
+    @FocusState private var isFocused: Bool
 
     var body: some View {
         HStack(spacing: AppMetric.spacingMD) {
@@ -15,6 +16,7 @@ struct AppSearchBar: View {
 
             TextField(placeholder, text: $text)
                 .font(AppFont.body)
+                .focused($isFocused)
                 .onChange(of: text) { value in
                     onChange?(value)
                 }
@@ -33,5 +35,7 @@ struct AppSearchBar: View {
         .frame(height: AppMetric.controlHeight)
         .background(AppColor.surfaceMuted)
         .clipShape(RoundedRectangle(cornerRadius: AppMetric.radiusMD))
+        .contentShape(Rectangle())
+        .onTapGesture { isFocused = true }
     }
 }

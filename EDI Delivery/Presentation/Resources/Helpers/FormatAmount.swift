@@ -1,5 +1,4 @@
 internal import Foundation
-// MARK: - Helpers
 
  func formatAmount(_ value: Double) -> String {
     let formatter = NumberFormatter()

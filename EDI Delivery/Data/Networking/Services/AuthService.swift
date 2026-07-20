@@ -7,7 +7,7 @@ struct AuthService: BaseService {
         request(.login(model: model), completion: completion)
     }
     
-    func getMe(completion: @escaping Completion<GetMeResponse>) {
+    func getMe(completion: @escaping Completion<UserData?>) {
         request(.getMe, completion: completion)
     }
     

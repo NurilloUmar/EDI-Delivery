@@ -41,8 +41,8 @@ class LoginViewModel: ObservableObject {
                 Cache.share.saveUserToken(token: "Bearer \(token)")
                 self?.getMe()
                 self?.navigation.routeToTabbar()
-            case.failure(let error):
-                Alert.showAlert(forState: .error, message: error.localizedDescription, vibrationType: .error)
+            case .failure:
+                break
             }
         }
     }

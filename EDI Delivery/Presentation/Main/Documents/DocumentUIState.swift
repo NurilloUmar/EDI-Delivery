@@ -1,8 +1,7 @@
-//
-//  DocumentUIState.swift
-//  EDI Delivery
-//
-//  Created by hayot on 6/18/26.
-//
+internal import Foundation
 
-import Foundation
+struct DocumentUIState {
+    var items: [DocumentResponse] = []
+    var searchText: String = ""
+    var selectedDate: Date = Date()
+}

@@ -3,6 +3,7 @@ import UIKit
 protocol AuthSessionDelegate: AnyObject {
     func routeToMain()
     func routeToAuth()
+    func reloadRoot()
 }
 
 enum AuthSession {
@@ -28,7 +29,9 @@ class AppCoordinator: AuthSessionDelegate {
     }
 
     func routeToMain() {
-        window?.rootViewController = TabBarController()
+        let coordinator = MainCoordinator()
+        let controller = coordinator.start()
+        window?.rootViewController = BaseNavigationController(rootViewController: controller)
         window?.makeKeyAndVisible()
     }
 
@@ -37,6 +40,14 @@ class AppCoordinator: AuthSessionDelegate {
         let controller = coordinator.start()
         window?.rootViewController = BaseNavigationController(rootViewController: controller)
         window?.makeKeyAndVisible()
+    }
+
+    func reloadRoot() {
+        if hasToken() {
+            routeToMain()
+        } else {
+            routeToAuth()
+        }
     }
 
     private func hasToken() -> Bool {

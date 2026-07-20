@@ -9,7 +9,8 @@ class ProductCoordinator: Coordinator {
     func start() -> BaseViewController {
         let viewModel = ProductViewModel(
             navigation: self,
-            productService: DIContainer.shared.resolver.get()
+            productService: DIContainer.shared.resolver.get(),
+            basketService: DIContainer.shared.resolver.get()
         )
         let viewController = ProductViewController(viewModel: viewModel)
         self.viewController = viewController
